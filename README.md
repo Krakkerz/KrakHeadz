@@ -1,5 +1,11 @@
 # KrakHeadz (gruppe 6)
 
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
 ## Name of the project (replace with the name)
 
 ## Project Description
