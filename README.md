@@ -3,7 +3,8 @@
 ## Name of the project (replace with the name)
 
 ## Project Description
-If you take the "easy one" or "A 'Krak' insprired project" you can leave this out
+"A 'Krak' insprired project"
+ - description TBD
 
 ## Group Contract
 
