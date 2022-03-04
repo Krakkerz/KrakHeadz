@@ -35,6 +35,6 @@ You should all add your GitHub usename in parenthesis next to your name, so I kn
 
 
 ### Member-3
-
+[Simon Gredal](https://github.com/simongredal) => simongredal
 
 ### Member-4
