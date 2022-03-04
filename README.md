@@ -19,7 +19,15 @@ Everyone must contribute.
 
 
 ## Branching Strategy 
-Add the name of your selected Branching Strategy
+We will use the GitHub Flow branching strategy.
+1. The main branch is sacred and MUST always be releaseable
+2. Everyone MUST commit their changes to a separate local development branch 
+   1. Development branches SHOULD have a descriptive name for the feature being developed.
+3. Code changes MUST be merged via pull requests
+   1. At least one other person MUST review and accept the pull request
+   2. Tests MUST be passing on the local development before creating a pull request
+   3. Local development branches SHOULD be rebased onto main before creating a pull request
+ 
 
 ## Link to deployed project
 Add a link (when ready) to your deployed project
