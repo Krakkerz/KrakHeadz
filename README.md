@@ -1,4 +1,4 @@
-# KrakHeadz
+# KrakHeadz (gruppe 6)
 
 ## Name of the project (replace with the name)
 
