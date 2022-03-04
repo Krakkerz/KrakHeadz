@@ -21,7 +21,7 @@ Everyone must contribute.
 
 ## Branching Strategy 
 We will use the GitHub Flow branching strategy.
-1. The main branch is sacred and MUST always be releaseable
+1. The main branch is sacred and MUST always be releasable
 2. Everyone MUST commit their changes to a separate local development branch 
    1. Local development branches SHOULD have a descriptive name for the feature being developed.
    2. Commits SHOULD be small, focused, and descriptive
