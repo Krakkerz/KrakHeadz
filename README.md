@@ -27,10 +27,11 @@ Initially, Each of you should push a commit with just your name
 You should all add your GitHub usename in parenthesis next to your name, so I know who is who, when I check commit messages
 
 ### Member-1
-[Malthe Gram](https://github.com/MaltheGram) => Username: MaltheGram
+[Malthe Gram](https://github.com/MaltheGram) => MaltheGram
 
 
 ### Member-2
+[Mark Larsen](https://github.com/mark3010) => mark3010
 
 
 ### Member-3
