@@ -10,6 +10,9 @@ If you take the "easy one" or "A 'Krak' insprired project" you can leave this ou
 §1
 We agree on meeting times and working hours from day to day.
 
+ §1.1
+ If a time can't be decided, we roll for a time with a random number generator
+
 §2
 Everyone must contribute.
 
