@@ -51,3 +51,4 @@ You should all add your GitHub usename in parenthesis next to your name, so I kn
 [Simon Gredal](https://github.com/simongredal) => simongredal
 
 ### Member-4
+[Frederik Vilhelmsen](https://github.com/frederikmahipal) => frederikmahipal
