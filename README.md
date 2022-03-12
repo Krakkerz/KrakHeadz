@@ -39,6 +39,9 @@ Each member must come up with a short description when the **final deadline is r
 Initially, Each of you should push a commit with just your name
 You should all add your GitHub usename in parenthesis next to your name, so I know who is who, when I check commit messages
 
+## MiniSprint-1
+
+
 ### Member-1
 [Malthe Gram](https://github.com/MaltheGram) => MaltheGram
 
