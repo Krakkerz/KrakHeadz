@@ -40,6 +40,9 @@ Initially, Each of you should push a commit with just your name
 You should all add your GitHub usename in parenthesis next to your name, so I know who is who, when I check commit messages
 
 ## MiniSprint-1
+- lav database entities og host på server
+- lav hello world frontend
+- crud til entities
 
 
 ### Member-1
