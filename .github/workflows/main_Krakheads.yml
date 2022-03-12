@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: https://index.docker.io/v1/
-        username: ${{ secrets.AzureAppService_ContainerUsername_3b38c2a6806942529983f78da2b0e8e5 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_97d3e1d4febe46f2adb756f01364ef3d }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_756c29bd7473419884c17b189ab271b1 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_5e205ab8fda547ccb47ae1c4bdf1623e }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_3b38c2a6806942529983f78da2b0e8e5 }}/Krakheadz:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_756c29bd7473419884c17b189ab271b1 }}/krakheadz:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'Krakheads'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_5e2388dda934499fbf469d2a317af57b }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_3b38c2a6806942529983f78da2b0e8e5 }}/Krakheadz:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_27e52add111e405c95775d6a90ef3477 }}
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_756c29bd7473419884c17b189ab271b1 }}/krakheadz:${{ github.sha }}'
