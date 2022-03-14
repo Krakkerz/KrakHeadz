@@ -22,5 +22,10 @@ public class HobbyInfo {
     private Hobby specifiedHobby;
 
     @ManyToOne
-    private Hobby specifiedPerson;
+    private Person specifiedPerson;
+
+    public HobbyInfo(Hobby specifiedHobby, Person specifiedPerson) {
+        this.specifiedHobby = specifiedHobby;
+        this.specifiedPerson = specifiedPerson;
+    }
 }

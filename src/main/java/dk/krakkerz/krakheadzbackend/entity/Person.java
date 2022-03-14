@@ -25,4 +25,13 @@ public class Person {
 
     @ManyToOne
     private Address address;
+
+    public Person(String email, String firstName, String lastName, int phoneNumber, Address address) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.hobbyInfoSet = hobbyInfoSet;
+        this.address = address;
+    }
 }
