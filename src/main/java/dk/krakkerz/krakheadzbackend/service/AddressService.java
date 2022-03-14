@@ -1,4 +1,4 @@
-package service;
+package dk.krakkerz.krakheadzbackend.service;
 
 import dk.krakkerz.krakheadzbackend.repository.AddressRepository;
 import org.springframework.stereotype.Service;
