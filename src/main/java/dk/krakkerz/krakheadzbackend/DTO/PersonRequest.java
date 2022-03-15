@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class AddressRequest {
-    private String street;
-    private String additionalInfo;
-    private String zipCode;
-    private String city;
+@NoArgsConstructor
+public class PersonRequest {
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
 }

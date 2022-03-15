@@ -29,7 +29,7 @@ public class AddressResponse {
         this.city = address.getCity();
     }
 
-    public static List<AddressResponse> getAddressFromEntities(List<Address> addresses) {
+    public static List<AddressResponse> getAddressesFromEntities(List<Address> addresses) {
 
         return addresses.stream().map(address -> new AddressResponse(address)).collect(Collectors.toList());
     }

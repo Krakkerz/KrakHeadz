@@ -18,7 +18,7 @@ public class AddressService {
     public List<AddressResponse> getAddresses() {
         List<Address> addresses = addressRepository.findAll();
 
-        return AddressResponse.getAddressFromEntities(addresses);
+        return AddressResponse.getAddressesFromEntities(addresses);
 
     }
 }
