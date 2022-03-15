@@ -18,7 +18,7 @@ public class AddressResponse {
 
     private String street;
     private String additionalInfo;
-    private int zipCode;
+    private String zipCode;
     private String city;
 
     public AddressResponse(Address address) {
