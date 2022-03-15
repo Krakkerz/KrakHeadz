@@ -19,7 +19,7 @@ public class Address {
 
     private String street;
     private String additionalInfo;
-    private int zipCode;
+    private String zipCode;
     private String city;
 
     @OneToMany(mappedBy = "address")
