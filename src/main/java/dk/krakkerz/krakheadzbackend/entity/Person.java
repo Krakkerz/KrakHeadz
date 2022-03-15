@@ -2,6 +2,7 @@ package dk.krakkerz.krakheadzbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +20,7 @@ public class Person {
     private String email;
     private String firstName;
     private String lastName;
-    private int phoneNumber;
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "specifiedPerson")
     private Set<HobbyInfo> hobbyInfoSet;
@@ -26,7 +28,7 @@ public class Person {
     @ManyToOne
     private Address address;
 
-    public Person(String email, String firstName, String lastName, int phoneNumber, Address address) {
+    public Person(String email, String firstName, String lastName, String phoneNumber, Address address) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
