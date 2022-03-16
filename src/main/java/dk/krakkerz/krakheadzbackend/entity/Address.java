@@ -1,5 +1,6 @@
 package dk.krakkerz.krakheadzbackend.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,4 +25,7 @@ public class Address {
 
     @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
     private Set<Person> persons = new HashSet<>();
+
 }
+
+
