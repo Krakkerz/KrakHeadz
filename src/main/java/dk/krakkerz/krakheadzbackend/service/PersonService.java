@@ -32,6 +32,16 @@ public class PersonService {
         return new PersonResponse(personNew);
     }
 
+    public PersonResponse editPerson(PersonRequest body, int id){
+        Person person = personRepository.findById(id).orElseThrow(() -> new Client4xxException("no person with this id"));
+        person.setEmail(body.getEmail());
+        person.setFirstName(body.getFirstName());
+        person.setLastName(body.getLastName());
+        person.setPhoneNumber(body.getPhoneNumber());
+
+        personRepository.save(person);
+        return new PersonResponse(person);
+    }
     public void deletePerson(int id) {
         personRepository.delete(personRepository.getById(id));
         System.out.println("person deleted with ID: " + id);

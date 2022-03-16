@@ -33,6 +33,11 @@ public class PersonController {
         return personService.addPerson(body);
     }
 
+    @PutMapping("/{id}")
+    public PersonResponse editCar(@RequestBody PersonRequest body, @PathVariable int id){
+        return personService.editPerson(body, id);
+    }
+
     @DeleteMapping("/{id}")
     @RolesAllowed("ADMIN")
     public void deleteCar(@PathVariable int id){
