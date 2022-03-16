@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class HobbyInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @CreationTimestamp
     private LocalDateTime dateSelected;

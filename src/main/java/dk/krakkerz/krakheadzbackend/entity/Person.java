@@ -1,12 +1,12 @@
 package dk.krakkerz.krakheadzbackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import dk.krakkerz.krakheadzbackend.DTO.PersonRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,15 +16,15 @@ import java.util.Set;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String email;
     private String firstName;
     private String lastName;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "specifiedPerson")
-    private Set<HobbyInfo> hobbyInfoSet;
+    @OneToMany(mappedBy = "specifiedPerson", fetch = FetchType.EAGER)
+    private Set<HobbyInfo> hobbyInfoSet = new HashSet<>();
 
     @ManyToOne
     private Address address;
