@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/persons")
+@CrossOrigin
 public class PersonController {
     PersonService personService;
 
