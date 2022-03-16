@@ -119,7 +119,7 @@ class PersonControllerTest {
     void deletePerson() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/persons/" + person1Id))
                 .andExpect(status().isOk());
-        //Verify that we only have one car in the database
+        //Verify that we only have one person in the database
         assertEquals(1, personRepository.count());
     }
 }
