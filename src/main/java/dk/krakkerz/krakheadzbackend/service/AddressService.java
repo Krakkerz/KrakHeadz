@@ -1,5 +1,6 @@
 package dk.krakkerz.krakheadzbackend.service;
 
+import dk.krakkerz.krakheadzbackend.DTO.AddressRequest;
 import dk.krakkerz.krakheadzbackend.DTO.AddressResponse;
 import dk.krakkerz.krakheadzbackend.entity.Address;
 import dk.krakkerz.krakheadzbackend.repository.AddressRepository;
@@ -21,5 +22,20 @@ public class AddressService {
         return AddressResponse.getAddressesFromEntities(addresses);
 
     }
-}
 
+    public AddressResponse getAddresses(int id) throws Exception {
+        Address address = addressRepository.findById(id).orElseThrow(() -> new Exception("No addresses with provided ID found"));
+        return new AddressResponse(address);
+    }
+
+    public AddressResponse addAddress(AddressRequest body) {
+        Address address = addressRepository.save(new Address());
+        return new AddressResponse(address);
+
+    }
+
+    public void deleteAddress(int id) {
+        addressRepository.delete(addressRepository.getById(id));
+        System.out.println("address deleted: " + id);
+    }
+}
