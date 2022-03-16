@@ -66,10 +66,10 @@ class AddressControllerTest {
     @Test
     void testDeleteAddress() {
 
-        addressRepository.save(address);
-        assertEquals(1,addressRepository.count());
+       assertEquals(1,addressRepository.count());
 
-        addressRepository.delete(address);
-        assertEquals(0,addressRepository.count());
+       addressRepository.delete(address);
+
+       assertEquals(0,addressRepository.count());
     }
 }
