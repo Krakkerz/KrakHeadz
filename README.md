@@ -32,7 +32,7 @@ We will use the GitHub Flow branching strategy.
  
 
 ## Link to deployed project
-Add a link (when ready) to your deployed project
+https://krakkerz.dk/#
 
 ## Who Did What
 Each member must come up with a short description when the **final deadline is reached**.
