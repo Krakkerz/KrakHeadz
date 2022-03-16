@@ -1,6 +1,7 @@
 package dk.krakkerz.krakheadzbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dk.krakkerz.krakheadzbackend.DTO.PersonRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,5 +36,12 @@ public class Person {
         this.phoneNumber = phoneNumber;
         this.hobbyInfoSet = hobbyInfoSet;
         this.address = address;
+    }
+
+    public Person(PersonRequest body) {
+        this.email = body.getEmail();
+        this.firstName = body.getFirstName();
+        this.lastName = body.getLastName();
+        this.phoneNumber = body.getPhoneNumber();
     }
 }
