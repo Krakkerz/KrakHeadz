@@ -48,6 +48,7 @@ You should all add your GitHub usename in parenthesis next to your name, so I kn
 - hobby support
 - addresse support
 - frontend -> create user with hobby and address
+- unit tests for all controllers
 
 ### Member-1
 [Malthe Gram](https://github.com/MaltheGram) => MaltheGram
