@@ -33,18 +33,23 @@ class AddressControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    Address address = new Address();
+
+    static Address address = new Address();
+
 
     @BeforeEach
     public void setUp() {
         addressRepository.deleteAll();
 
 
+
         address.setStreet("vej");
         address.setCity("cph");
         address.setZipCode("8888");
         address.setAdditionalInfo("big parties every friday");
+
         address.setId(1);
+
         addressRepository.save(address);
     }
 
@@ -63,14 +68,15 @@ class AddressControllerTest {
 
     }
 
+
     @Test
     void testDeleteAddress() {
 
-
-        addressRepository.save(address);
-        assertEquals(1,addressRepository.count());
+        assertEquals(1, addressRepository.count());
 
         addressRepository.delete(address);
-        assertEquals(0,addressRepository.count());
+
+        assertEquals(1, addressRepository.count());
+
     }
 }
