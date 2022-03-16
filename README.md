@@ -30,7 +30,6 @@ We will use the GitHub Flow branching strategy.
    2. Tests MUST be passing on the local development before creating a pull request
    3. Local development branches SHOULD be rebased onto main before creating a pull request
  
-
 ## Link to deployed project
 https://krakkerz.dk/#
 
@@ -44,14 +43,17 @@ You should all add your GitHub usename in parenthesis next to your name, so I kn
 - lav hello world frontend
 - crud til entities
 
+## GigaSprint-1
+- full crud for person/hobby
+- hobby support
+- addresse support
+- frontend -> create user with hobby and address
 
 ### Member-1
 [Malthe Gram](https://github.com/MaltheGram) => MaltheGram
 
-
 ### Member-2
 [Mark Larsen](https://github.com/mark3010) => mark3010
-
 
 ### Member-3
 [Simon Gredal](https://github.com/simongredal) => simongredal
