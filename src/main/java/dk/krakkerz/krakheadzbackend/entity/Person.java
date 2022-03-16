@@ -1,6 +1,8 @@
 package dk.krakkerz.krakheadzbackend.entity;
 
+
 import dk.krakkerz.krakheadzbackend.DTO.PersonRequest;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
