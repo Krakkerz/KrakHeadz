@@ -34,6 +34,6 @@ public class PersonService {
 
     public void deletePerson(int id) {
         personRepository.delete(personRepository.getById(id));
-        System.out.println("person deleted ID: " + id);
+        System.out.println("person deleted with ID: " + id);
     }
 }

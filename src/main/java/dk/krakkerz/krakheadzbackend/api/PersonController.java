@@ -32,28 +32,9 @@ public class PersonController {
         return personService.addPerson(body);
     }
 
-    /*
-    //access-admin
-    @PutMapping("/{id}")
-    @RolesAllowed("ADMIN")
-    public PersonResponse editCar(@RequestBody PersonRequest body, @PathVariable int id){
-        return personService.editPerson(body, id);
-    }
-
-    //access-admin
-
-    @PatchMapping("/{id}/{newprice}")
-    @RolesAllowed("ADMIN")
-    public void editPrice(@PathVariable int id,@PathVariable double newprice) throws Exception {
-        personService.updatePrice(id,newprice);
-    }*/
-
-    //access-admin
     @DeleteMapping("/{id}")
     @RolesAllowed("ADMIN")
     public void deleteCar(@PathVariable int id){
         personService.deletePerson(id);
     }
-}
-
 }
