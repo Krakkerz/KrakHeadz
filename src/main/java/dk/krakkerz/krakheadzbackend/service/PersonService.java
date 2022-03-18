@@ -52,7 +52,6 @@ public class PersonService {
                 hobbyInfoRepository.delete(link);
             }
         } catch (Exception e) {}*/
-
         personRepository.delete(personRepository.getById(id));
 
         System.out.println("person deleted with ID: " + id);
