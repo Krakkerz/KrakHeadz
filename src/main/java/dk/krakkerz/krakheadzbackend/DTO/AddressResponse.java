@@ -7,21 +7,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AddressResponse {
-    private int id;
+    private Integer id;
 
     private String street;
     private String additionalInfo;
     private String zipCode;
     private String city;
 
-    public AddressResponse(Address address) {
+    private AddressResponse(Address address) {
         this.id = address.getId();
         this.street = address.getStreet();
         this.additionalInfo = address.getAdditionalInfo();
@@ -29,8 +28,11 @@ public class AddressResponse {
         this.city = address.getCity();
     }
 
-    public static List<AddressResponse> getAddressesFromEntities(List<Address> addresses) {
+    public static List<AddressResponse> of(List<Address> entities) {
+        return entities.stream().map(AddressResponse::new).toList();
+    }
 
-        return addresses.stream().map(address -> new AddressResponse(address)).collect(Collectors.toList());
+    public static AddressResponse of(Address entity) {
+        return new AddressResponse(entity);
     }
 }
