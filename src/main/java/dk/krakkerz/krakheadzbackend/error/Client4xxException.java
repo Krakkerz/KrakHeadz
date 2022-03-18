@@ -1,21 +1,19 @@
 package dk.krakkerz.krakheadzbackend.error;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
-//@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class Client4xxException extends RuntimeException{
-    HttpStatus status;
-    public Client4xxException(String message) {
-        super(message);
-        this.status = HttpStatus.BAD_REQUEST;
-    }
-    public Client4xxException(String message,HttpStatus status) {
-        super(message);
-        this.status = status;
+public class Client4xxException extends ResponseStatusException {
+    public Client4xxException(HttpStatus status) {
+        super(status);
     }
 
-    public HttpStatus getStatus() {
-        return status;
+    public Client4xxException(HttpStatus status, String reason) {
+        super(status, reason);
+    }
+
+    public Client4xxException(HttpStatus status, String reason, Throwable cause) {
+        super(status, reason, cause);
     }
 }
 
