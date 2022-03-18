@@ -1,0 +1,38 @@
+# Build app
+# Analyse module deps and build a stripped jre
+FROM maven:3-openjdk-17 AS build
+WORKDIR /tmp
+ADD pom.xml .
+ADD src src
+
+# RUN /bin/bash -c 'mvn -P staging clean install; \
+RUN /bin/bash -c 'mvn -P production clean install; \
+                  mvn dependency:build-classpath \
+                      -Dmdep.includeScope=runtime \
+                      -Dmdep.outputFile=classpath.txt; \
+                  export DEPENDENCY_CLASSPATH=$(cat classpath.txt); \
+                  jdeps \
+                      --class-path $DEPENDENCY_CLASSPATH \
+                      --multi-release base \
+                      --print-module-deps \
+                      --ignore-missing-deps \
+                      --recursive target/classes > modules.txt; \
+                  export JAVA_MODULES=$(cat modules.txt); \
+                  jlink \
+                      --add-modules $JAVA_MODULES \
+                      --strip-debug \
+                      --no-man-pages \
+                      --no-header-files \
+                      --compress=2 \
+                      --output javaruntime;'
+
+# Define a base image to run the application on \
+# Copy our custom stripped runtime and application in here
+#FROM debian:11-slim
+FROM frolvlad/alpine-glibc:latest
+ENV JAVA_HOME=/opt/java/openjdk
+ENV PATH "${JAVA_HOME}/bin:${PATH}"
+COPY --from=build /tmp/javaruntime $JAVA_HOME
+COPY --from=build /tmp/target/*.jar app.jar
+EXPOSE 80
+ENTRYPOINT ["java", "-jar", "app.jar"]
