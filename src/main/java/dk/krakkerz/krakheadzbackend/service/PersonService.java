@@ -7,7 +7,6 @@ import dk.krakkerz.krakheadzbackend.entity.Person;
 import dk.krakkerz.krakheadzbackend.error.Client4xxException;
 import dk.krakkerz.krakheadzbackend.repository.HobbyInfoRepository;
 import dk.krakkerz.krakheadzbackend.repository.PersonRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +18,6 @@ public class PersonService {
 
     public PersonService(PersonRepository personRepository, HobbyInfoRepository hobbyInfoRepository) {
         this.personRepository = personRepository;
-        this.hobbyInfoRepository = hobbyInfoRepository;
     }
 
     public List<PersonResponse> getAllPersons() {
@@ -38,7 +36,7 @@ public class PersonService {
     }
 
     public PersonResponse editPerson(PersonRequest body, int id){
-        Person person = personRepository.findById(id).orElseThrow(() -> new Client4xxException(HttpStatus.NOT_FOUND, "no person with this id"));
+        Person person = personRepository.findById(id).orElseThrow(() -> new Client4xxException("no person with this id"));
         person.setEmail(body.getEmail());
         person.setFirstName(body.getFirstName());
         person.setLastName(body.getLastName());

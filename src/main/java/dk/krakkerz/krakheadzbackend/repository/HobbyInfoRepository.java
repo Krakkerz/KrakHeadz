@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface HobbyInfoRepository extends JpaRepository<HobbyInfo, Integer> {
     //@Query(value="select hobby_info from HobbyInfo hobby_info where hobby_info.specifiedPerson=?1")
-    //List<HobbyInfo> findAllBySpecifiedPersonEquals(Integer personId);
+    List<HobbyInfo> findAllBySpecifiedPersonEquals(Integer personId);
 }
