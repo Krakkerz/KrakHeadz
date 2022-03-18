@@ -46,9 +46,11 @@ public class PersonService {
         return new PersonResponse(person);
     }
     public void deletePerson(int id) {
-        for (HobbyInfo link : hobbyInfoRepository.findAllBySpecifiedPersonEquals(id)) {
-            hobbyInfoRepository.delete(link);
-        }
+        try {
+            for (HobbyInfo link : hobbyInfoRepository.findAllBySpecifiedPersonEquals(id)) {
+                hobbyInfoRepository.delete(link);
+            }
+        } catch (Exception e) {}
         personRepository.delete(personRepository.getById(id));
 
         System.out.println("person deleted with ID: " + id);
