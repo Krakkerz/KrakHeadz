@@ -53,6 +53,7 @@ public class PersonService {
         } catch (Exception e) {}*/
 
         personRepository.delete(personRepository.getById(id));
+
         System.out.println("person deleted with ID: " + id);
     }
 }
