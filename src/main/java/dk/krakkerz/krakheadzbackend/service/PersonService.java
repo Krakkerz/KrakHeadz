@@ -2,8 +2,10 @@ package dk.krakkerz.krakheadzbackend.service;
 
 import dk.krakkerz.krakheadzbackend.DTO.PersonRequest;
 import dk.krakkerz.krakheadzbackend.DTO.PersonResponse;
+import dk.krakkerz.krakheadzbackend.entity.HobbyInfo;
 import dk.krakkerz.krakheadzbackend.entity.Person;
 import dk.krakkerz.krakheadzbackend.error.Client4xxException;
+import dk.krakkerz.krakheadzbackend.repository.HobbyInfoRepository;
 import dk.krakkerz.krakheadzbackend.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.List;
 @Service
 public class PersonService {
     PersonRepository personRepository;
+    HobbyInfoRepository hobbyInfoRepository;
 
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
@@ -43,7 +46,11 @@ public class PersonService {
         return new PersonResponse(person);
     }
     public void deletePerson(int id) {
+        for (HobbyInfo link : hobbyInfoRepository.findAllBySpecifiedPersonEquals(id)) {
+            hobbyInfoRepository.delete(link);
+        }
         personRepository.delete(personRepository.getById(id));
+
         System.out.println("person deleted with ID: " + id);
     }
 }
