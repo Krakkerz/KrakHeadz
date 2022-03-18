@@ -18,6 +18,7 @@ public class PersonService {
 
     public PersonService(PersonRepository personRepository, HobbyInfoRepository hobbyInfoRepository) {
         this.personRepository = personRepository;
+        this.hobbyInfoRepository = hobbyInfoRepository;
     }
 
     public List<PersonResponse> getAllPersons() {
