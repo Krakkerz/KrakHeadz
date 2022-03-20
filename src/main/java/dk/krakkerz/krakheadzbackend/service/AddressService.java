@@ -6,6 +6,7 @@ import dk.krakkerz.krakheadzbackend.entity.Address;
 import dk.krakkerz.krakheadzbackend.error.AddressDoesNotExistException;
 import dk.krakkerz.krakheadzbackend.error.FunctionalityNotImplementedException;
 import dk.krakkerz.krakheadzbackend.repository.AddressRepository;
+import dk.krakkerz.krakheadzbackend.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AddressService {
     private final AddressRepository addressRepository;
+    private final PersonRepository personRepository;
 
     public List<AddressResponse> getAllAddresses() {
         List<Address> addresses = addressRepository.findAll();
@@ -22,7 +24,7 @@ public class AddressService {
 
     }
 
-    public AddressResponse getAddressById(Integer id) {
+    public AddressResponse getAddressById(String id) {
         boolean addressDoesExist = addressRepository.existsById(id);
         if (!addressDoesExist) throw new AddressDoesNotExistException();
 
@@ -36,7 +38,7 @@ public class AddressService {
         return AddressResponse.of(address);
     }
 
-    public AddressResponse editAddress(Integer id, AddressRequest body) {
+    public AddressResponse editAddress(String id, AddressRequest body) {
         boolean addressDoesExist = addressRepository.existsById(id);
         if (!addressDoesExist) throw new AddressDoesNotExistException();
 
@@ -44,9 +46,13 @@ public class AddressService {
         throw new FunctionalityNotImplementedException();
     }
 
-    public void deleteAddress(int id) {
-        boolean addressDoesExist = addressRepository.existsById(id);
-        if (!addressDoesExist) throw new AddressDoesNotExistException();
+    public void deleteAddress(String id) {
+        if (!addressRepository.existsById(id))
+            throw new AddressDoesNotExistException();
+
+        Address address = addressRepository.getById(id);
+        address.getPersons().forEach( person -> person.setAddress( null ) );
+        personRepository.saveAll( address.getPersons() );
 
         addressRepository.deleteById(id);
     }

@@ -1,5 +1,7 @@
 package dk.krakkerz.krakheadzbackend.api;
 
+import dk.krakkerz.krakheadzbackend.DTO.AddressRequest;
+import dk.krakkerz.krakheadzbackend.DTO.HobbyRequest;
 import dk.krakkerz.krakheadzbackend.DTO.PersonRequest;
 import dk.krakkerz.krakheadzbackend.DTO.PersonResponse;
 import dk.krakkerz.krakheadzbackend.service.PersonService;
@@ -24,7 +26,7 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public PersonResponse getPersons(@PathVariable int id) throws Exception{
+    public PersonResponse getPersons(@PathVariable int id) {
         return personService.getPerson(id);
     }
 
@@ -33,9 +35,19 @@ public class PersonController {
         return personService.addPerson(body);
     }
 
+    @PostMapping("/{personId}/addAddress")
+    public PersonResponse addAddressToPerson(@PathVariable Integer personId, @RequestBody AddressRequest body){
+        return personService.addAddressToPerson(personId, body);
+    }
+
+    @PostMapping("/{personId}/addHobby")
+    public PersonResponse addAddressToPerson(@PathVariable Integer personId, @RequestBody HobbyRequest body){
+        return personService.addHobbyToPerson(personId, body);
+    }
+
     @PutMapping("/{id}")
-    public PersonResponse editCar(@RequestBody PersonRequest body, @PathVariable int id){
-        return personService.editPerson(body, id);
+    public PersonResponse editCar(@PathVariable Integer id, @RequestBody PersonRequest body){
+        return personService.editPerson(id, body);
     }
 
     @DeleteMapping("/{id}")

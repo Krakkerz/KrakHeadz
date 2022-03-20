@@ -20,7 +20,7 @@ public class Hobby {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "specifiedHobby", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "specifiedHobby", fetch = FetchType.LAZY)
     private Set<HobbyInfo> hobbyInfoSet = new HashSet<>();
 
     public Hobby(String name, String description) {

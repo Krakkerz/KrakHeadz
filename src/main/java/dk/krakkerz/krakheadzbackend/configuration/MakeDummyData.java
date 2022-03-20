@@ -32,7 +32,7 @@ public class MakeDummyData implements ApplicationRunner {
 
         Person person2 = new Person();
         person2.setEmail("email2@dummyman.com");
-        person2.setFirstName("Lugigi");
+        person2.setFirstName("Luigi");
         person2.setLastName("Bros");
         person2.setPhoneNumber("69696969");
         personRepository.save( person2 );

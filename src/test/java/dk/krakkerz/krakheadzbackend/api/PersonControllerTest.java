@@ -6,59 +6,62 @@ import dk.krakkerz.krakheadzbackend.entity.Address;
 import dk.krakkerz.krakheadzbackend.entity.Person;
 import dk.krakkerz.krakheadzbackend.repository.AddressRepository;
 import dk.krakkerz.krakheadzbackend.repository.PersonRepository;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.*;
+import javax.transaction.Transactional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
+@Transactional
 class PersonControllerTest {
-
     @Autowired
-    PersonRepository personRepository;
-
+    private PersonRepository personRepository;
     @Autowired
     AddressRepository addressRepository;
-
     @Autowired
     MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper objectMapper;
 
-    static int person1Id, person2Id;
-    static Address address1;
+    private static Integer person1Id, person2Id;
+    private static Address address1;
 
-    @BeforeEach
-    public void setup() {
+    @BeforeAll
+    public static void setUp(@Autowired AddressRepository addressRepository, @Autowired PersonRepository personRepository) {
+        address1 = Address.builder()
+                .id("1")
+                .text("John Hitlers Vej 69, 1849 England")
+                .build();
+
+        address1 = addressRepository.save(address1);
+
+        person1Id = personRepository.save(new Person("emailmand1@mail.com", "firstnameX", "lastnameX", "12345678", address1)).getId();
+        person2Id = personRepository.save(new Person("emailmand2@mail.com", "firstnameY", "lastnameY", "87654321", address1)).getId();
+    }
+
+    @AfterAll
+    public static void tearDown(@Autowired AddressRepository addressRepository, @Autowired PersonRepository personRepository) {
         personRepository.deleteAll();
         addressRepository.deleteAll();
-
-        address1 = new Address();
-        address1.setCity("England");
-        address1.setStreet("John hitler's vej");
-        address1.setZipCode("1849");
-        address1.setAdditionalInfo("nope");
-
-        addressRepository.save(address1);
-
-        person1Id = personRepository.save(new Person("emailmand1@mail.com","firstnameX","lastnameX","12345678",address1)).getId();
-        person2Id = personRepository.save(new Person("emailmand2@mail.com","firstnameY","lastnameY","12345678",address1)).getId();
     }
 
     @Test
-    void getPersons() throws Exception{             //all persons
+    void testGetAllPersons() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/persons")
                         .accept(MediaType.APPLICATION_JSON))
@@ -70,7 +73,7 @@ class PersonControllerTest {
     }
 
     @Test
-    void testGetPersons() throws Exception {        //single person
+    void testGetOnePerson() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/persons/" + person1Id)
                         .accept(MediaType.APPLICATION_JSON))
@@ -87,8 +90,8 @@ class PersonControllerTest {
     }
 
     @Test
-    void addPerson() throws Exception{
-        PersonRequest newPerson = new PersonRequest("emailmand3@mail.com","firstnameZ","lastnameZ","87654321");
+    void testAddPerson() throws Exception {
+        PersonRequest newPerson = new PersonRequest("emailmand3@mail.com", "firstnameZ", "lastnameZ", "87654321");
         mockMvc.perform(MockMvcRequestBuilders.post("/api/persons")
                         .contentType("application/json")
                         .accept("application/json")
@@ -96,30 +99,34 @@ class PersonControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+
         //Verify that it actually ended in the database
         assertEquals(3, personRepository.count());
     }
 
     @Test
-    void editPerson() throws Exception{
-        //New price and discount for the ford
-        PersonRequest carToEdit = new PersonRequest("emailmand1@mail.com","firstnameO","lastnameO","12345678");
+    void testEditPerson() throws Exception {
+        PersonRequest carToEdit = new PersonRequest("emailmand1@mail.com", "firstnameO", "lastnameO", "12345678");
 
         mockMvc.perform(MockMvcRequestBuilders.put("/api/persons/" + person1Id)
                         .contentType("application/json")
                         .accept("application/json")
                         .content(objectMapper.writeValueAsString(carToEdit)))
+                .andDo(print())
                 .andExpect(status().isOk());
-        Person editedPersonFromDB = personRepository.findById(person1Id).orElse(null);
+
+        Person editedPersonFromDB = personRepository.getById(person1Id);
         assertEquals("firstnameO", editedPersonFromDB.getFirstName());
         assertEquals("lastnameO", editedPersonFromDB.getLastName());
     }
 
     @Test
-    void deletePerson() throws Exception{
+    void testDeletePerson() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/persons/" + person1Id))
+                .andDo(print())
                 .andExpect(status().isOk());
-        //Verify that we only have one car in the database
+
+        //Verify that we only have one person in the database
         assertEquals(1, personRepository.count());
     }
 }
