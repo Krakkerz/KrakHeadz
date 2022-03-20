@@ -1,9 +1,6 @@
 package dk.krakkerz.krakheadzbackend.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,19 +10,19 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Address {
+    /**
+     * DAWA api id
+     */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
-    private String street;
-    private String additionalInfo;
-    private String city;
-    private String zipCode;
+    private String text;
 
-    @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
-    private Set<Person> persons = new HashSet<>();
-
+    @OneToMany(mappedBy = "address", fetch =FetchType.LAZY)
+    private Set<Person> persons = new java.util.LinkedHashSet<>();
 }
 
 
