@@ -19,6 +19,8 @@ public class Hobby {
 
     private String name;
     private String description;
+    private String category;
+    private String type;
 
     @OneToMany(mappedBy = "specifiedHobby", fetch = FetchType.EAGER)
     private Set<HobbyInfo> hobbyInfoSet = new HashSet<>();
