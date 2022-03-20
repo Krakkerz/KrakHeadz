@@ -56,8 +56,8 @@ class PersonControllerTest {
 
     @AfterAll
     public static void tearDown(@Autowired AddressRepository addressRepository, @Autowired PersonRepository personRepository) {
-        addressRepository.deleteAll();
         personRepository.deleteAll();
+        addressRepository.deleteAll();
     }
 
     @Test
