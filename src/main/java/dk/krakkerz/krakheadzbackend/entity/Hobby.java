@@ -1,8 +1,6 @@
 package dk.krakkerz.krakheadzbackend.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -12,6 +10,8 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Hobby {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +24,4 @@ public class Hobby {
 
     @OneToMany(mappedBy = "specifiedHobby", fetch = FetchType.LAZY)
     private Set<HobbyInfo> hobbyInfoSet = new HashSet<>();
-
-    public Hobby(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
 }
