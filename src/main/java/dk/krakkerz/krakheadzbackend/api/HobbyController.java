@@ -2,10 +2,7 @@ package dk.krakkerz.krakheadzbackend.api;
 
 import dk.krakkerz.krakheadzbackend.DTO.HobbyResponse;
 import dk.krakkerz.krakheadzbackend.service.HobbyService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +20,11 @@ public class HobbyController {
     public List<HobbyResponse> getHobbies() {
         return hobbyService.getHobbies();
     }
+
+    @GetMapping("/{id}")
+    public HobbyResponse getHobbies(@PathVariable int id) {
+        return hobbyService.getHobbyById(id);
+    }
+
+
 }

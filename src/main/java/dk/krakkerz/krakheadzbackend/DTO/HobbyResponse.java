@@ -2,6 +2,7 @@ package dk.krakkerz.krakheadzbackend.DTO;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import dk.krakkerz.krakheadzbackend.entity.Address;
 import dk.krakkerz.krakheadzbackend.entity.Hobby;
 import dk.krakkerz.krakheadzbackend.entity.Person;
 import lombok.Getter;
@@ -31,4 +32,7 @@ public class HobbyResponse {
         return hobbies.stream().map(hobby -> new HobbyResponse(hobby)).collect(Collectors.toList());
     }
 
+    public static HobbyResponse of(Hobby entity) {
+        return new HobbyResponse(entity);
+    }
 }
