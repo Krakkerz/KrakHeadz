@@ -13,19 +13,12 @@ import java.util.List;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AddressResponse {
-    private Integer id;
-
-    private String street;
-    private String additionalInfo;
-    private String zipCode;
-    private String city;
+    private String id;
+    private String text;
 
     private AddressResponse(Address address) {
         this.id = address.getId();
-        this.street = address.getStreet();
-        this.additionalInfo = address.getAdditionalInfo();
-        this.zipCode = address.getZipCode();
-        this.city = address.getCity();
+        this.text = address.getText();
     }
 
     public static List<AddressResponse> of(List<Address> entities) {

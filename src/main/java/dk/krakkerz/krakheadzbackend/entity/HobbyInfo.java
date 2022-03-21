@@ -20,10 +20,10 @@ public class HobbyInfo {
     @CreationTimestamp
     private LocalDateTime dateSelected;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Hobby specifiedHobby;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Person specifiedPerson;
 
     public HobbyInfo(Hobby specifiedHobby, Person specifiedPerson) {

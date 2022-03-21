@@ -1,51 +1,60 @@
 package dk.krakkerz.krakheadzbackend.service;
 
+import dk.krakkerz.krakheadzbackend.DTO.AddressRequest;
+import dk.krakkerz.krakheadzbackend.DTO.HobbyRequest;
 import dk.krakkerz.krakheadzbackend.DTO.PersonRequest;
 import dk.krakkerz.krakheadzbackend.DTO.PersonResponse;
+import dk.krakkerz.krakheadzbackend.entity.Address;
 import dk.krakkerz.krakheadzbackend.entity.HobbyInfo;
 import dk.krakkerz.krakheadzbackend.entity.Person;
 import dk.krakkerz.krakheadzbackend.error.Client4xxException;
+import dk.krakkerz.krakheadzbackend.error.FunctionalityNotImplementedException;
+import dk.krakkerz.krakheadzbackend.error.PersonDoesNotExistException;
+import dk.krakkerz.krakheadzbackend.repository.AddressRepository;
 import dk.krakkerz.krakheadzbackend.repository.HobbyInfoRepository;
 import dk.krakkerz.krakheadzbackend.repository.PersonRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class PersonService {
-    PersonRepository personRepository;
-    HobbyInfoRepository hobbyInfoRepository;
-
-    public PersonService(PersonRepository personRepository, HobbyInfoRepository hobbyInfoRepository) {
-        this.personRepository = personRepository;
-        this.hobbyInfoRepository = hobbyInfoRepository;
-    }
+    private final PersonRepository personRepository;
+    private final HobbyInfoRepository hobbyInfoRepository;
+    private final AddressRepository addressRepository;
 
     public List<PersonResponse> getAllPersons() {
         List<Person> persons = personRepository.findAll();
-        return PersonResponse.getPersonsFromEntities(persons);
+        return PersonResponse.of(persons);
     }
 
-    public PersonResponse getPerson(int id) {
-        PersonResponse response = new PersonResponse(personRepository.findById(id).orElseThrow(() -> new Client4xxException(HttpStatus.NOT_FOUND, "no person with this id")));
-        return response;
+    public PersonResponse getPerson(Integer id) {
+        if (!personRepository.existsById(id))
+            throw new PersonDoesNotExistException();
+
+        return PersonResponse.of(personRepository.getById(id));
     }
 
     public PersonResponse addPerson(PersonRequest body) {
-        Person personNew = personRepository.save(new Person(body));
-        return new PersonResponse(personNew);
+        Person person = personRepository.save(body.toPerson());
+
+        return PersonResponse.of(person);
     }
 
-    public PersonResponse editPerson(PersonRequest body, int id){
-        Person person = personRepository.findById(id).orElseThrow(() -> new Client4xxException(HttpStatus.NOT_FOUND, "no person with this id"));
+    public PersonResponse editPerson(Integer id, PersonRequest body){
+        if (!personRepository.existsById(id))
+            throw new PersonDoesNotExistException();
+
+        Person person = personRepository.getById(id);
         person.setEmail(body.getEmail());
         person.setFirstName(body.getFirstName());
         person.setLastName(body.getLastName());
         person.setPhoneNumber(body.getPhoneNumber());
 
-        personRepository.save(person);
-        return new PersonResponse(person);
+        return PersonResponse.of( personRepository.save(person) );
     }
     public void deletePerson(int id) {
         /*try {
@@ -53,8 +62,28 @@ public class PersonService {
                 hobbyInfoRepository.delete(link);
             }
         } catch (Exception e) {}*/
-        personRepository.delete(personRepository.getById(id));
 
+        personRepository.delete(personRepository.getById(id));
         System.out.println("person deleted with ID: " + id);
+    }
+
+    public PersonResponse addAddressToPerson(Integer personId, AddressRequest body) {
+        if (!personRepository.existsById(personId))
+            throw new PersonDoesNotExistException();
+
+        if (!addressRepository.existsById(body.getId()))
+            addressRepository.save(body.toAddress());
+
+        Person person = personRepository.getById(personId);
+        person.setAddress( body.toAddress() );
+
+        return PersonResponse.of( personRepository.save(person) );
+    }
+
+    public PersonResponse addHobbyToPerson(Integer personId, HobbyRequest body) {
+        if (!personRepository.existsById(personId))
+            throw new PersonDoesNotExistException();
+
+        throw new  FunctionalityNotImplementedException();
     }
 }

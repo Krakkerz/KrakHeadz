@@ -1,28 +1,22 @@
 package dk.krakkerz.krakheadzbackend.DTO;
 
 import dk.krakkerz.krakheadzbackend.entity.Address;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressRequest {
-    private String street;
-    private String city;
-    private String zipCode;
-    private String additionalInfo;
+    private String id;
+    private String text;
 
     public Address toAddress() {
         Address address = new Address();
 
-        address.setStreet( this.street );
-        address.setCity( this.city );
-        address.setZipCode( this.zipCode );
-        address.setAdditionalInfo( this.additionalInfo );
+        if (this.id != null) address.setId( this.id );
+        if (this.text != null) address.setText( this.text );
 
         return address;
     }

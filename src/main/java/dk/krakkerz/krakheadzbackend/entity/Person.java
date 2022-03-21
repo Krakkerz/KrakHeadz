@@ -24,10 +24,10 @@ public class Person {
     private String lastName;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "specifiedPerson", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "specifiedPerson", fetch = FetchType.LAZY)
     private Set<HobbyInfo> hobbyInfoSet = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Address address;
 
     public Person(String email, String firstName, String lastName, String phoneNumber, Address address) {
@@ -35,7 +35,7 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.hobbyInfoSet = hobbyInfoSet;
+//        this.hobbyInfoSet = hobbyInfoSet;
         this.address = address;
     }
 
