@@ -1,20 +1,17 @@
 package dk.krakkerz.krakheadzbackend.service;
 
 import dk.krakkerz.krakheadzbackend.DTO.AddressRequest;
-import dk.krakkerz.krakheadzbackend.DTO.HobbyRequest;
 import dk.krakkerz.krakheadzbackend.DTO.PersonRequest;
 import dk.krakkerz.krakheadzbackend.DTO.PersonResponse;
-import dk.krakkerz.krakheadzbackend.entity.Address;
+import dk.krakkerz.krakheadzbackend.entity.Hobby;
 import dk.krakkerz.krakheadzbackend.entity.HobbyInfo;
 import dk.krakkerz.krakheadzbackend.entity.Person;
-import dk.krakkerz.krakheadzbackend.error.Client4xxException;
-import dk.krakkerz.krakheadzbackend.error.FunctionalityNotImplementedException;
+import dk.krakkerz.krakheadzbackend.error.HobbyDoesNotExistException;
 import dk.krakkerz.krakheadzbackend.error.PersonDoesNotExistException;
 import dk.krakkerz.krakheadzbackend.repository.AddressRepository;
-import dk.krakkerz.krakheadzbackend.repository.HobbyInfoRepository;
+import dk.krakkerz.krakheadzbackend.repository.HobbyRepository;
 import dk.krakkerz.krakheadzbackend.repository.PersonRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PersonService {
     private final PersonRepository personRepository;
-    private final HobbyInfoRepository hobbyInfoRepository;
+    private final HobbyRepository hobbyRepository;
     private final AddressRepository addressRepository;
 
     public List<PersonResponse> getAllPersons() {
@@ -80,10 +77,18 @@ public class PersonService {
         return PersonResponse.of( personRepository.save(person) );
     }
 
-    public PersonResponse addHobbyToPerson(Integer personId, HobbyRequest body) {
+    public PersonResponse addHobbyToPerson(Integer personId, Integer hobbyId) {
         if (!personRepository.existsById(personId))
             throw new PersonDoesNotExistException();
+        if (!hobbyRepository.existsById(hobbyId))
+            throw new HobbyDoesNotExistException();
 
-        throw new  FunctionalityNotImplementedException();
+        Person person = personRepository.getById(personId);
+        Hobby hobby = hobbyRepository.getById(hobbyId);
+        HobbyInfo hobbyInfo = new HobbyInfo(hobby, person);
+
+        person.getHobbyInfoSet().add(hobbyInfo);
+
+        return PersonResponse.of(personRepository.save(person));
     }
 }

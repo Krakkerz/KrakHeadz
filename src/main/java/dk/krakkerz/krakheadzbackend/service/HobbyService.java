@@ -24,7 +24,7 @@ public class HobbyService {
     public List<HobbyResponse> getHobbies() {
         List<Hobby> hobbies = hobbyRepository.findAll();
 
-        return HobbyResponse.getHobbiesFromEntities(hobbies);
+        return HobbyResponse.of(hobbies);
     }
 
     public HobbyResponse getHobbyById(int id) {
