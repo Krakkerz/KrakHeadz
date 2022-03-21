@@ -39,10 +39,20 @@ public class MakeDummyData implements ApplicationRunner {
     }
 
     public void makeHobbies(){
-        Hobby hobby1 = new Hobby("Dog Fighting","dogs fight, you bet money on the game, the last dog standing wins");
+        Hobby hobby1 = Hobby.builder()
+                .name("Dog Fighting")
+                .description("dogs fight, you bet money on the game, the last dog standing wins")
+                .category("competition")
+                .type("indoor/outdor")
+                .build();
         hobbyRepository.save(hobby1);
 
-        Hobby hobby2 = new Hobby("Kicking Puppies","you kick puppies, if you want you can collect the tears and use them for alchemy.");
+        Hobby hobby2 = Hobby.builder()
+                .name("Kicking Puppies")
+                .description("you kick puppies, if you want you can collect the tears and use them for alchemy.")
+                .category("recreational")
+                .type("indoor/outdor")
+                .build();
         hobbyRepository.save(hobby2);
     }
 
@@ -59,7 +69,7 @@ public class MakeDummyData implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         makePersons();
         makeHobbies();
         makeHobbyInfos();

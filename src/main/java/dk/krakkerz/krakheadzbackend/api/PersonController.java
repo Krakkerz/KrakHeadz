@@ -1,13 +1,11 @@
 package dk.krakkerz.krakheadzbackend.api;
 
 import dk.krakkerz.krakheadzbackend.DTO.AddressRequest;
-import dk.krakkerz.krakheadzbackend.DTO.HobbyRequest;
 import dk.krakkerz.krakheadzbackend.DTO.PersonRequest;
 import dk.krakkerz.krakheadzbackend.DTO.PersonResponse;
 import dk.krakkerz.krakheadzbackend.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
@@ -35,25 +33,30 @@ public class PersonController {
         return personService.addPerson(body);
     }
 
-    @PostMapping("/{personId}/addAddress")
-    public PersonResponse addAddressToPerson(@PathVariable Integer personId, @RequestBody AddressRequest body){
-        return personService.addAddressToPerson(personId, body);
-    }
-
-    @PostMapping("/{personId}/addHobby")
-    public PersonResponse addAddressToPerson(@PathVariable Integer personId, @RequestBody HobbyRequest body){
-        return personService.addHobbyToPerson(personId, body);
-    }
-
     @PutMapping("/{id}")
     public PersonResponse editCar(@PathVariable Integer id, @RequestBody PersonRequest body){
         return personService.editPerson(id, body);
     }
 
     @DeleteMapping("/{id}")
-    @RolesAllowed("ADMIN")
     public void deleteCar(@PathVariable int id){
         personService.deletePerson(id);
     }
+
+
+    // Address Stuff
+    @PostMapping("/{personId}/address")
+    public PersonResponse addAddressToPerson(@PathVariable Integer personId, @RequestBody AddressRequest body){
+        return personService.addAddressToPerson(personId, body);
+    }
+
+
+    // Hobby Stuff
+    @PostMapping("/{personId}/hobby/{hobbyId}")
+    public PersonResponse addHobbyToPerson(@PathVariable Integer personId, @PathVariable Integer hobbyId){
+        return personService.addHobbyToPerson(personId, hobbyId);
+    }
+
+
 }
 

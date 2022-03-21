@@ -1,15 +1,14 @@
 package dk.krakkerz.krakheadzbackend.DTO;
 
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import dk.krakkerz.krakheadzbackend.entity.HobbyInfo;
 import dk.krakkerz.krakheadzbackend.entity.Person;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -21,6 +20,7 @@ public class PersonResponse {
     private String lastName;
     private String phoneNumber;
     private AddressResponse address;
+    private List<HobbyInfoResponse> hobbyInfos = new ArrayList<>();
 
     private PersonResponse(Person person) {
         this.id = person.getId();
@@ -29,6 +29,7 @@ public class PersonResponse {
         this.lastName = person.getLastName();
         this.phoneNumber = person.getPhoneNumber();
         if (person.getAddress() != null) this.address = AddressResponse.of(person.getAddress());
+        if (person.getHobbyInfoSet() != null) this.hobbyInfos = HobbyInfoResponse.of(person.getHobbyInfoSet().stream().toList());
     }
 
     public static PersonResponse of(Person entity) {
