@@ -24,7 +24,7 @@ public class Person {
     private String lastName;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "specifiedPerson", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "specifiedPerson", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<HobbyInfo> hobbyInfoSet = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

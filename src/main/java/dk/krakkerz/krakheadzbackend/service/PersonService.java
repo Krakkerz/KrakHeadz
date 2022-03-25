@@ -54,11 +54,8 @@ public class PersonService {
         return PersonResponse.of( personRepository.save(person) );
     }
     public void deletePerson(int id) {
-        /*try {
-            for (HobbyInfo link : hobbyInfoRepository.findAllBySpecifiedPersonEquals(id)) {
-                hobbyInfoRepository.delete(link);
-            }
-        } catch (Exception e) {}*/
+        //jpa does not support cascade set null, so we have to fix this ourselves:
+        personRepository.getById(id).setAddress(null);
 
         personRepository.delete(personRepository.getById(id));
         System.out.println("person deleted with ID: " + id);
