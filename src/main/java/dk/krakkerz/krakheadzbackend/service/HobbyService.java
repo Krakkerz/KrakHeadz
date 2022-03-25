@@ -1,12 +1,7 @@
 package dk.krakkerz.krakheadzbackend.service;
 
-import dk.krakkerz.krakheadzbackend.DTO.AddressResponse;
-import dk.krakkerz.krakheadzbackend.DTO.HobbyRequest;
 import dk.krakkerz.krakheadzbackend.DTO.HobbyResponse;
-import dk.krakkerz.krakheadzbackend.entity.Address;
 import dk.krakkerz.krakheadzbackend.entity.Hobby;
-import dk.krakkerz.krakheadzbackend.entity.HobbyInfo;
-import dk.krakkerz.krakheadzbackend.error.AddressDoesNotExistException;
 import dk.krakkerz.krakheadzbackend.repository.HobbyRepository;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +26,5 @@ public class HobbyService {
         Hobby hobby = hobbyRepository.getById(id);
 
         return HobbyResponse.of(hobby);
-
     }
 }
