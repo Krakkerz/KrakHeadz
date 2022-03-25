@@ -34,12 +34,12 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public PersonResponse editCar(@PathVariable Integer id, @RequestBody PersonRequest body){
+    public PersonResponse editPerson(@PathVariable Integer id, @RequestBody PersonRequest body){
         return personService.editPerson(id, body);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCar(@PathVariable int id){
+    public void deletePerson(@PathVariable int id){
         personService.deletePerson(id);
     }
 
