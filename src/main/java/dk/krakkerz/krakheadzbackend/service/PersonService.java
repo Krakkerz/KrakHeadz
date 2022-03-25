@@ -9,6 +9,7 @@ import dk.krakkerz.krakheadzbackend.entity.Person;
 import dk.krakkerz.krakheadzbackend.error.HobbyDoesNotExistException;
 import dk.krakkerz.krakheadzbackend.error.PersonDoesNotExistException;
 import dk.krakkerz.krakheadzbackend.repository.AddressRepository;
+import dk.krakkerz.krakheadzbackend.repository.HobbyInfoRepository;
 import dk.krakkerz.krakheadzbackend.repository.HobbyRepository;
 import dk.krakkerz.krakheadzbackend.repository.PersonRepository;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.List;
 public class PersonService {
     private final PersonRepository personRepository;
     private final HobbyRepository hobbyRepository;
+    private final HobbyInfoRepository hobbyInfoRepository;
     private final AddressRepository addressRepository;
 
     public List<PersonResponse> getAllPersons() {
@@ -53,12 +55,12 @@ public class PersonService {
 
         return PersonResponse.of( personRepository.save(person) );
     }
-    public void deletePerson(int id) {
-        //jpa does not support cascade set null, so we have to fix this ourselves:
-        personRepository.getById(id).setAddress(null);
+    public void deletePerson(Integer id) {
+        if (!personRepository.existsById(id))
+            throw new PersonDoesNotExistException();
 
-        personRepository.delete(personRepository.getById(id));
-        System.out.println("person deleted with ID: " + id);
+        hobbyInfoRepository.deleteBySpecifiedPerson_Id(id);
+        personRepository.deleteById(id);
     }
 
     public PersonResponse addAddressToPerson(Integer personId, AddressRequest body) {

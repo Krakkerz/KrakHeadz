@@ -50,10 +50,7 @@ public class AddressService {
         if (!addressRepository.existsById(id))
             throw new AddressDoesNotExistException();
 
-        Address address = addressRepository.getById(id);
-        address.getPersons().forEach( person -> person.setAddress( null ) );
-        personRepository.saveAll( address.getPersons() );
-
+        personRepository.updateAddressToValueWhereAddressId(null, id);
         addressRepository.deleteById(id);
     }
 }
